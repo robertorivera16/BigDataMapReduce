@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart', ]});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(initialize);
+
+      function initialize() {
+        var opts = {sendMethod: 'auto'};
+        // Replace the data source URL on next line with your data source URL.
+        var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/13LvCWZlo2A4nrJCyYauUgqGlnZc0CQiFB-tuSz0tD98/edit?usp=sharing', opts);
+
+
+        // Send the query with a callback function.
+        query.send(handleQueryResponse);
+}
+  function handleQueryResponse(response) {
+
+  if (response.isError()) {
+    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+  var data = response.getDataTable();
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+  chart.draw(data);
+}
+
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>
